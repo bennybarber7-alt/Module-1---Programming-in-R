@@ -1,0 +1,532 @@
+---
+title: "Intro to programming - module 1"
+author: "Ben Barber"
+date: "2026-05-20"
+output: html_document
+---
+#Introduction
+This document contains code and output from module 1 introduction to programming. IT is a working progress and will be upadeted as we go through the workshop
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setting directory #
+```{r}
+getwd()
+```
+
+
+# Workshop 1 #
+
+```{r Intro to R}
+## intro exercises ##
+
+2+1
+
+1:30
+
+6* +2
+
+# Variables and Assignment ####
+# This section focuses on understanding how data is stored in R and why that matters
+
+age <- 22
+first_name <- 'ben'
+
+
+age+1
+
+age+ age ##44
+
+#naming object require specifics - can't use numbers, special characters or spaces
+
+##Exercisev <- Use R to calculate the sum of 15, 25.1 and 20.25.
+
+result <- 15 + 25.1 + 20.25 #result<- 60.35
+
+second_result <- 12 + 6 + 84 
+
+result + second_result # = 162.35
+
+##Fucntions in R
+
+years_old <- 57.7
+
+round(years_old) #round up
+
+floor(years_old) #round down
+
+years_old <- 25.765
+round (years_olld, 2) # comma after the object to specify argument
+
+##question about functions use args(xxx) and ?round # go to help in console
+
+
+## Exercsie 2 ##
+
+ben_age <- 22
+paste(first_name, 'is', age, "years old")  #Ben is 22 years old
+
+
+## Debugging ##
+
+# What will this code do?
+p <- 2
+z <- 5
+out <- p * z  # What should the value of out be? <-- will multiple p and z together 
+print (out) # What is the value of out? Is it the same as expected?
+
+# exercise #
+#my_quiz <- c("uno",
+             "dos",
+             "tres",
+             "cuatro"
+             "cinco")     # comment: there are is a missing comma in the my_quiz string
+#print (my_quis)        # spelling mistake in print function
+#str(my_quiz)
+#len(my_quiz)       # functoin not real, real functoin = length
+
+#testing
+
+is.character(my_quiz) #true
+is.numeric(my_quiz)  #false
+#how it shoudl look:
+
+my_quiz <- c("uno",
+             "dos",
+             "tres",
+             "cuatro",
+             "cinco")
+print(my_quiz )
+str(my_quiz)
+length(my_quiz)  
+
+
+## 1.3.11	Data types ##
+
+# character    
+# numeric
+# integer
+# logical
+# complex
+# raw
+
+
+#class() - what kind of object is it (high-level)?
+#  typeof() - what is the object's data type?
+#length() - how long is it?
+#attributes() - does it have any metadata? 
+
+
+## Exercise ##
+my_numeric_variable  <-  6.3
+my_character_varaible <- "ben"
+my_integer_varaible <- 8
+my_logical_varaible <- 9 < 12
+
+typeof(my_numeric_variable)
+typeof(my_character_varaible)
+typeof(my_integer_varaible)
+typeof(my_logical_varaible)
+
+class(my_numeric_variable) #numeric
+class(my_character_varaible) #character
+class(my_integer_varaible) #numeric
+class(my_logical_varaible) #logical
+
+
+
+## 1.3.12 Data structures ##
+# R has many data structures. These include:
+#  atomic vector                             vector is most common
+#  list
+#  matrix
+#  data frame
+#  factors
+
+y <- c(1, 2, 3) #creating a numeric vector 
+
+z <- c("Sarah", "Tracy", "Jon")   #crating character vector
+
+class(y) #numeric
+class(z) #character        type within a vector must be the same 
+
+# Lists : list can be of several different types.
+x <- list(1, "a", TRUE)
+x
+
+x[[2]]   # retrieve individual elements using double square brackets to reference their index.
+
+
+## 1.3.13	Data frames and tibbles ##
+
+#dataframe is the R version of a spreadsheet
+
+my_dataframe <- data.frame (no = c(1,2,3), c("Tracey", "John", "Pete"), c(TRUE, FALSE, TRUE))
+                           
+my_dataframe
+
+str(my_dataframe)
+
+# checking the dataframe
+my_dataframe$no = as.factor(my_dataframe$no)   #A factor is a categorical type, so here we are telling R 
+str (my_dataframe)                            #that column 1 is actually storing a category (a group membership, 
+                                               #say a numeric code for which team each of these people are in) 
+                                              #rather than a real continuous number. 
+
+#can use NA as a cell holder when we don't have the data <-  can use na.omit function 
+
+
+## 1.3.14	Packages and libraries ##
+
+#packages are a collection of functions
+
+#install.packages("tidyverse") # download and install
+library("tidyverse") # load into current workspace
+
+#install.packages ("ggplot2") # comment out so it doesn’t run again, once its installed on computer it doesn't need to be reinstalled
+
+
+#install.packages("earthtones")
+#install.packages ("redlistr")
+#install.packages("terra")
+
+library (ggplot2)
+
+
+## 1.3.15	Coding best practices ##
+
+# title
+# Read data .csv
+# load packages
+```
+
+
+# Workshop 2 #
+
+```{r visulisation - plotting}
+# load package
+
+library(tidyverse)
+
+#explore ggplot dataframe
+mpg
+?mpg
+```
+
+##first plot - ggplot
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+geom_point() adds a layer of points to your plot,
+
+ggplot plot template:
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+
+## empty plot
+```{r}
+ggplot() 
+```
+##plot with data argument
+```{r}
+ggplot(data = mpg)
+```
+plots require 2 attributes: Geom and aesthetics
+
+##plot with colour arguments - class to colour
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, colour = class))
+```
+
+##change class to size
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+#> Warning: Using size for a discrete variable is not advised. 
+```
+
+##Change point transparency by class (alpha)
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+
+## Change point shape by class.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+## change to specifc colour - blue
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue") 
+#create all dot points as blue
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 6))
+```
+
+##example error:
+```{r}
+ggplot(data = mpg) 
++ geom_point(mapping = aes(x = displ, y = hwy)) 
+# the + should be on top line
+```
+
+## Facet and panel plots
+To facet your plot using a single variable, use facet_wrap(). Facet wrap syntax is in the function of a formula (kind of like a linear model formula), where the ~ dictates which variable you want to subset your data with. 
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+##include more than 1 variable 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+```
+
+## Period makes varaible not be incldued twice 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+nrow and ncol refer to the number of rows or columns, eg.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow = 2, ncol = 8)
+```
+
+## Fitting simple lines
+To display data as points, use geom_point().
+= ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+  
+To display the same data as a smooth line fit through the points use geom_smooth().
+= ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+  
+##combining both togehter:
+```{r}
+ggplot(data = mpg) + 
+ geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+## Incorporating colour and points 
+```{r}
+ggplot(data = mpg) + 
+   geom_point(mapping = aes(x = displ, y = hwy, colour = drv, shape = class))+
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv, colour = drv))
+```
+
+##grouping arguements
+can use group argument to show that our is grouped, wont add legend but can easlity be used to cary plots by the discrete vairables 
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
+```
+
+changing the colour and incorporating both point and smooth:
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE,
+  ) +
+  geom_point(mapping = aes(x = displ, y = hwy, colour = drv, shape = class))
+```
+
+do it this way duplicate the x and y arguements but ggplot allows for the overarching mappings:
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+##combining together
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+```
+
+can include subsets under grom_smooth:
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+```
+
+##Exercise:
+What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_line(mapping = aes(color = class))
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_boxplot(mapping = aes(color = class))
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ)) + 
+  geom_histogram(mapping = aes(color = class)) #histogram only has one varaible
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_area(mapping = aes(color = class))
+```
+
+##excerise
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+```
+
+these produce the same graphs as the agrument have been specifcied earlier in the code
+
+##Transformations and Stats - using diamonds dataset
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+bar charts, histograms, and frequency polygons “bin” your data and then plot bin counts (the number of points that fall in each bin).
+
+smoothers fit a model to your data and then plot predictions from the model.
+
+boxplots compute a robust summary of the distribution and then display a specially formatted box.
+
+You can generally use geoms and stats interchangeably. For example, you can recreate the previous plot using stat_count() instead of geom_bar().
+```{r}
+ggplot(data = diamonds) + 
+  stat_count(mapping = aes(x = cut))
+```
+
+##Overriding defaults 
+```{r}
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+demo
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+```
+
+overriding - showing proportion rather than counts 
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+#> Warning: `stat(prop)` was deprecated in ggplot2 3.4.0.
+```
+
+##Plotting statistical details
+```{r}
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+## Aesthetic adjustments
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut)) # this colours the outline of the bar
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut)) #this fills the bar with colour
+```
+coloured by clarity 
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+ position adjustments is vital, it allows you to customise your plots in three ways, identity (raw data), fill (changes heights) and dodge (which forces ggplot2 to not put things on top of each other)
+ 
+```{r}
+#To alter transparency (alpha)
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar(alpha = 1/5, position = "identity")
+
+#To color the bar outlines with no fill color
+ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
+  geom_bar(fill = NA, position = "identity")
+```
+ 
+position = "fill" works like stacking, but makes each set of stacked bars the same height.
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+```
+
+position = "dodge" places overlapping objects directly beside one another.
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```
+
+position = "jitter" adds a small amount of random noise to each point to avoid overplotting when points overlap. This is useful for scatterplots but not barplots.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+```
+
+##The layered grammar of graphics
+
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <FACET_FUNCTION>
+
+
+
+
+
+
+#-----Workshop 3------#
+
+
+Running a script in markdown:
+```{r}
+source("module_1.R")
+
+getwd()
+```
+
+
+
