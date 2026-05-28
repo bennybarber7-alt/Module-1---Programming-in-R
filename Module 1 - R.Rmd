@@ -527,6 +527,58 @@ source("module_1.R")
 
 getwd()
 ```
+The workshop was spent linking our R studio, Git and Github. I have now linked my local work to my repo on github.
 
 
 
+#-----Workshop 4------#
+
+Exercise: AI-Driven Data Visualisation Challenge
+
+```{r}
+# Load tidyverse and palmerpenguins libraries
+
+library(tidyverse)
+library(palmerpenguins)
+#install.packages("palmerpenguins")
+
+```
+#Instructing copliot
+
+```{r}
+# Create a ggplot scatter plot using the penguins dataset. 
+# Plot bill_length_mm on the x-axis and bill_depth_mm on the y-axis.
+# Color points by species and use geom_point with size 3.
+# Add a minimal theme and clean labels.
+
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species), size = 3) +
+  theme_minimal() +
+  labs(title = "Penguin Bill Dimensions",
+       x = "Bill Length (mm)",
+       y = "Bill Depth (mm)",
+       color = "Species")
+```
+
+#Open-Ended Comparative Plotting
+
+Option A (Distribution Check):
+
+```{r}
+# create a ggplot boxplot using the penguins dataset.
+# plot flipper_length_mm on the y-axis and species on the x-axis.
+# facet the plot by island and use a custom color palette for the species.
+# add a title and clean labels.
+```
+
+
+Option B (Biomass Correlation):
+```{r}
+#Instruct Copilot to build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species.
+
+#create a ggplot scatter plot using the penguins dataset.
+#plot body_mass_g on the y-axis and flipper_length_mm on the x-axis.
+#add a linear regression trend line (geom_smooth) for each species.
+
+
+```
