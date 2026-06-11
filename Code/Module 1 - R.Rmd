@@ -286,14 +286,14 @@ To facet your plot using a single variable, use facet_wrap(). Facet wrap syntax 
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
+  facet_wrap(~ class, nrow = 2)                   #nrow is the number of rows you want in your facet plot, ncol is the number of columns you want in your facet plot
 ```
 
-##include more than 1 variable 
+##including more than 1 varaible into the facet grid 
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
+  facet_grid(drv ~ cyl)                           #drv is the variable you want to facet by in the rows, cyl is the variable you want to facet by in the columns
 ```
 
 ## Period makes varaible not be incldued twice 

@@ -1,0 +1,343 @@
+title: "Module 1 - workshop 2"
+author: "Ben Barber"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+ html_document:
+    code_folding: show
+    collapse: no
+    df_print: paged
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: inline
+
+```{r setup, include=FALSE}
+# Set options, housekeeping
+knitr::opts_chunk$set(
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE)
+```
+
+#------------------------------------#
+# MB5370: Techniques in Marine Science 1
+# Programming Fundamentals
+ 
+
+#------------------------------------#
+# Workshop 02. Visualisation #
+ 
+ 
+ ## Load Packages ##
+ 
+```{r}
+library(tidyverse)
+
+#explore ggplot dataframe using built in dataset on cars.
+mpg
+?mpg
+```
+ 
+# Understand the ‘grammar of graphics’#
+
+## Craeation of First ggplot ##
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) # Using ggplot2, I plotted the data (data = mpg) and then put the size of the engine (displ) on the x axis and the fuel efficiency (hwy) on the y axis. 
+
+```
+
+### Example code for graphs ###
+
+geom_point() adds a layer of points to your plot,
+
+ggplot plot template:
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+  
+## Aesthetics and Mappings ##
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, colour = class)) # New aesthetic: graph by mapping the colour of the points to the class of the car.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class)) # New aesthetic: graph by mapping the size of the points to the class of the car.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class)) # New aesthetic: graph by mapping the transparency of the points to the class of the car.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class)) # New aesthetic: graph by mapping the shape of the points to the class of the car. Note that this only works for categorical variables, so it only works for 6 classes of car, not 7.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")  
+#create all dot points as blue, not mapped to a variable in the data. This is different from the previous examples where the colour of the points was mapped to a variable in the data (class). In this example, all points are blue regardless of their class.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 6)) # New aesthetic: graph by mapping the colour of the points to whether the size of the engine (displ) is less than 6 or not. This creates a new variable in the data that is TRUE for cars with displ < 6 and FALSE for cars with displ >= 6, and maps the colour of the points to this new variable.
+```
+### example errors in ggplot ###
+
+```{r}
+ggplot(data = mpg) 
++ geom_point(mapping = aes(x = displ, y = hwy)) # the + should be on top line
+
+```
+
+
+## Facet and panel plots ##
+To facet your plot using a single variable, use facet_wrap(). Facet wrap syntax is in the function of a formula (kind of like a linear model formula), where the ~ dictates which variable you want to subset your data with. 
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +    
+  facet_wrap(~ class, nrow = 2)  facet_wrap(~ class, nrow = 2)                   #nrow is the number of rows you want in your facet plot, ncol is the number of columns you want in your facet plot
+
+```
+##including more than 1 varaible into the facet grid 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)                         #drv is the variable you want to facet by in the rows, cyl is the variable you want to facet by in the columns
+
+
+
+
+facet_grid(. ~ cyl) #facet by cyl in the columns, but not facet by anything in the rows (the . is a placeholder for 'nothing'
+```
+### nrow and ncol refer to the number of rows or columns, eg.###
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow = 2, ncol = 8)
+
+```
+
+## Fitting simple lines ##
+
+```{r} 
+#To display data as points, use geom_point().
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+  
+#To display the same data as a smooth line fit through the points use geom_smooth().
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+
+
+
+ggplot(data = mpg) + 
+ geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy)) #To display both the points and the smooth line on the same plot, add the two layers together. Note that you only need to specify the mapping once if it's the same for both layers, so you could also write this as:
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+
+## Grouping arguements##
+can use group argument to show that our is grouped, wont add legend but can easlity be used to cary plots by the discrete vairables 
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv),show.legend = FALSE
+  )
+#group = drv tells R to fit a separate smooth line for each level of the drv variable, but it doesn't add a legend to the plot. This is useful when you want to show that your data is grouped by a discrete variable, but you don't want to add a legend to the plot.
+```
+### Incorporating both colour and points into ggplot ###
+
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE,
+  ) +
+  geom_point(mapping = aes(x = displ, y = hwy, colour = drv, shape = class)) # To add points to the plot, use geom_point() and map the colour and shape aesthetics to the drv and class variables, respectively. This will create points with different colours and shapes for each level of the drv and class variables.
+```
+```{r}
+ggplot(data = mpg) + 
+   geom_point(mapping = aes(x = displ, y = hwy, colour = drv, shape = class))+
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv, colour = drv)) # To add a smooth line to the plot, use geom_smooth() and map the linetype and colour aesthetics to the drv variable. This will create smooth lines with different linetypes and colours for each level of the drv variable.
+```
+
+
+## Combining the Geoms together ##
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+```
+
+###can include subsets under grom_smooth:
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE) 
+# This code creates a scatter plot of the displ and hwy variables from the mpg dataset, with points colored by the class variable. It then adds a smooth line to the plot using geom_smooth(), but only for the subset of the data where class is equal to "subcompact". The se = FALSE argument tells R not to display the confidence interval around the smooth line.
+```
+
+## Exercise:
+What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_line(mapping = aes(color = class))    # To draw a line chart, you would use geom_line(). This code creates a line chart of the displ and hwy variables from the mpg dataset, with lines colored by the class variable.
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_boxplot(mapping = aes(color = class))    # To draw a boxplot, you would use geom_boxplot(). This code creates a boxplot of the displ and hwy variables from the mpg dataset, with boxes colored by the class variable.
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ)) + 
+  geom_histogram(mapping = aes(color = class)) # To draw a histogram, you would use geom_histogram(). This code creates a histogram of the displ variable from the mpg dataset, with bars colored by the class variable. Note that you only need to specify the x aesthetic for a histogram, as the y aesthetic is automatically calculated based on the count of observations in each bin.
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_area(mapping = aes(color = class))   # To draw an area chart, you would use geom_area(). This code creates an area chart of the displ and hwy variables from the mpg dataset, with areas colored by the class variable. Note that area charts are typically used to show how a quantity changes over time, so you may want to use a different dataset that has a time variable on the x-axis for a more meaningful area chart.
+```
+
+
+
+## Excerise: differences between these codes
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+
+
+## Both of these codes create the same plot, which is a scatter plot of the displ and hwy variables from the mpg dataset with a smooth line fit through the points. The first code specifies the data and mapping in the ggplot() function, which means that all layers will inherit these settings unless they are overridden. The second code specifies the data and mapping separately for each layer, which allows for more flexibility if you want to use different datasets or mappings for different layers. However, in this case, since both layers use the same dataset and mapping, the two codes produce the same result.
+```
+
+
+## Transformations and Stats ##
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut)) # To create a bar chart of the cut variable from the diamonds dataset, you would use geom_bar(). This code creates a bar chart with the cut variable on the x-axis and the count of observations in each category on the y-axis. Note that geom_bar() automatically counts the number of observations in each category of the cut variable and creates bars accordingly.
+```
+### recreate bar plot ###
+```{r}
+#you can recreate the previous plot using stat_count() instead of geom_bar().
+
+ggplot(data = diamonds) + 
+  stat_count(mapping = aes(x = cut))
+```
+
+
+## Overriding defaults in ggplot2 ##
+```{r}
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+demo
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+
+# To create a bar chart using the demo dataset, you would use geom_bar() with the stat = "identity" argument. This tells ggplot2 to use the values in the freq column as the heights of the bars, rather than counting the number of observations in each category. The x aesthetic is mapped to the cut variable, and the y aesthetic is mapped to the freq variable, which creates a bar chart with the cut categories on the x-axis and their corresponding frequencies on the y-axis.
+```
+## overriding - showing proportion rather than counts ##
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+
+# To create a bar chart that shows the proportion of observations in each category of the cut variable, you would use geom_bar() with the y aesthetic mapped to stat(prop) and the group aesthetic set to 1. The stat(prop) function calculates the proportion of observations in each category of the cut variable, and the group = 1 argument tells ggplot2 to treat all observations as a single group when calculating the proportions. This creates a bar chart with the cut categories on the x-axis and their corresponding proportions on the y-axis.
+
+
+
+#> Warning: `stat(prop)` was deprecated in ggplot2 3.4.0.
+```
+
+
+##  Plotting statistical details ##
+
+```{r}
+ ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )   # To create a plot that shows the minimum, maximum, and median values of the depth variable for each category of the cut variable in the diamonds dataset, you would use stat_summary() with the appropriate arguments. The x aesthetic is mapped to the cut variable, and the y aesthetic is mapped to the depth variable. The fun.min argument specifies the function to calculate the minimum value (min), the fun.max argument specifies the function to calculate the maximum value (max), and the fun argument specifies the function to calculate the median value (median). This creates a plot with the cut categories on the x-axis and vertical lines representing the range from minimum to maximum depth, with a point indicating the median depth for each category.
+```
+
+
+## Aesthetic adjustments ##
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut))  
+
+# This code creates a bar chart with the cut variable on the x-axis and the count of observations in each category on the y-axis, with bars colored according to their respective categories of cut.
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut)) 
+
+# This code creates a bar chart with the cut variable on the x-axis and the count of observations in each category on the y-axis, with bars filled according to their respective categories of cut. 
+
+#The fill aesthetic fills the interior of the bars with colour, while the colour aesthetic only colors the outline of the bars. Therefore, using fill will create solid colored bars, while using colour will create bars with colored outlines and no fill.
+```
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity)) # notice that the fill aesthetic can be mapped to a different variable than the x aesthetic. In this case, the bars are filled according to the clarity variable, which creates stacked bars that show the distribution of clarity within each category of cut.
+```
+
+```{r}
+#To alter transparency (alpha)
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar(alpha = 1/5, position = "identity")            
+
+# To alter the transparency of the bars, you can use the alpha argument in geom_bar(). In this code, alpha is set to 1/5, which makes the bars semi-transparent. The position = "identity" argument allows the bars to overlap each other, which can be useful when you want to see the distribution of clarity within each category of cut without stacking the bars on top of each other.
+
+#To color the bar outlines with no fill color
+ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
+  geom_bar(fill = NA, position = "identity")
+
+# This code creates a bar chart with the cut variable on the x-axis and the count of observations in each category on the y-axis, with bars outlined according to the clarity variable and no fill color. The fill = NA argument removes the fill colour from the bars, while the colour aesthetic colorus only the outlines of the bars. The position = "identity" argument allows the bars to overlap each other, which can be useful when you want to see the distribution of clarity within each category of cut without stacking the bars on top of each other.
+```
+## position function ##
+Position functoin controls how the bars are displayed when there are multiple bars at the same x position. The default position is "stack", which stacks the bars on top of each other. You can change this to "dodge" to place the bars next to each other, or "fill" to stack the bars and make them fill the same height.
+
+```{r}
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") # To create a bar chart that shows the proportion of observations in each category of cut filled by the clarity variable, you would use geom_bar() with the position = "fill" argument. This stacks the bars on top of each other and scales them to have the same height, which allows you to see the distribution of clarity within each category of cut as proportions.
+
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge") # To create a bar chart that places the bars next to each other for each category of cut and clarity, you would use geom_bar() with the position = "dodge" argument. This separates the bars for each category of cut and clarity, allowing you to compare the counts of observations in each category more easily.
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter") # To create a scatter plot of the displ and hwy variables from the mpg dataset with points that are jittered to reduce overplotting, you would use geom_point() with the position = "jitter" argument. This adds a small amount of random noise to the position of each point, which can help to reveal patterns in the data when there are many points that overlap each other.
+
+
+```
+
