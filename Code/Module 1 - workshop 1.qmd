@@ -2,6 +2,7 @@
 title: "Module 1 - workshop 1"
 author: "Ben Barber"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+format: html
 output: 
  html_document:
     code_folding: show
@@ -29,7 +30,7 @@ knitr::opts_chunk$set(
 
 # MB5370: Techniques in Marine Science 1: Programming Fundamentals
 
-# Workshop 01. Introduction
+# Introduction
 
 Workshop 1 introduced the foundations of programming for marine science, with a focus on building confidence in R and RStudio. The workshop covered basic R syntax, scripts, objects, functions, data types, packages, debugging, and good coding style. It also introduced the importance of reproducible workflows, including organised project folders, Quarto documents, and GitHub tracking. This workshop provided the technical foundation needed to begin working with marine science data in a clear, organised, and reproducible way.
 
