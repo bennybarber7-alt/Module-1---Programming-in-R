@@ -1,0 +1,454 @@
+title: "Module 1 - workshop 4"
+author: "Ben Barber"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+ html_document:
+    code_folding: show
+    collapse: no
+    df_print: paged
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: inline
+
+```{r setup, include=FALSE}
+# Set options, housekeeping
+knitr::opts_chunk$set(
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE)
+```
+
+#------------------------------------#
+# MB5370: Techniques in Marine Science 1
+# Programming Fundamentals
+ 
+
+#------------------------------------#
+# Workshop 04. The Developer's Toolbox & AI #
+
+## Exercise: AI-Driven Data Visualisation Challenge ##
+
+### Load Packages ###
+```{r}
+#install.packages("palmerpenguins")
+library(tidyverse)
+library(palmerpenguins)
+
+```
+ 
+## Instructing copliot example ##
+Create a ggplot scatter plot using the penguins dataset. Plot bill_length_mm on the x-axis and bill_depth_mm on the y-axis.Colour points by species and use geom_point with size 3. Add a minimal theme and clean labels.
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species), size = 3) +
+  theme_minimal() +
+  labs(title = "Penguin Bill Dimensions",
+       x = "Bill Length (mm)",
+       y = "Bill Depth (mm)",
+       color = "Species")
+```
+
+
+## I'm Instructing ##
+### Option A (Distribution Check) ###
+
+create a ggplot boxplot using the penguins dataset.Plot flipper_length_mm on the y-axis and species on the x-axis.Facet the plot by island and use a custom color palette for the species.Add a title and clean labels.
+```{r}
+ggplot(data = penguins) + 
+  geom_boxplot(mapping = aes(x = species, y = flipper_length_mm, fill = species)) +
+  facet_wrap(~ island) +
+  scale_fill_manual(values = c("Adelie" = "blue", "Chinstrap" = "green", "Gentoo" = "orange")) +
+  labs(title = "Flipper Length by Species and Island",
+       x = "Species",
+       y = "Flipper Length (mm)",
+       fill = "Species") +
+  theme_minimal()
+```
+
+### Option B (Biomass Correlation) ###
+Instruct Copilot to build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species.
+
+create a ggplot scatter plot using the penguins dataset.Plot body_mass_g on the y-axis and flipper_length_mm on the x-axis. Add a linear regression trend line (geom_smooth) for each species.
+
+
+```{r}
+ggplot(data = penguins) + 
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_smooth(mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species), method = "lm") +
+  labs(title = "Body Mass vs Flipper Length by Species",
+       x = "Flipper Length (mm)",
+       y = "Body Mass (g)",
+       color = "Species") +
+  theme_minimal()
+```
+
+
+
+## chattr (Conversational Workspace Engine) ##
+
+#### Downlaoding packages for chattr ####
+
+```{r}
+
+#install.packages("ellmer")
+#install.packages("chattr")
+
+```
+
+#### Configuring chattr to model ####
+
+```{r}
+#usethis::edit_r_profile()
+
+# Option A: For Google Gemini
+#options(.chattr_chat = ellmer::chat_google_gemini())
+
+```
+
+this code snippet shows how to set up the chattr package to use Google's Gemini model for conversational AI. By adding the line `options(.chattr_chat = ellmer::chat_google_gemini())` to your R profile, you configure chattr to utilize Gemini for generating responses in your conversational workspace. This allows you to leverage Gemini's capabilities for tasks such as data analysis, code generation, and interactive discussions within your R environment.
+
+### Exercise: Prompting for Context###
+Open your newly configured chattr interface using your keyboard shortcut. Paste a dataset summary or ask a conversational question to test the model delivery workflow. For example, prompt the interface with: "Show me how to load the built-in iris dataset and use ggplot2 to build a scatter plot of Sepal.Length versus Sepal.Width colored by Species." Use the Copy to Document button to drop the code directly into an active R script and execute it.
+
+
+#### My prompt ####
+Create me a scatter plot using the iris dataset with ggplot2. I want a plot of the sepal length vs the sepal width. Colour the graph according to species
+```{R}
+library(ggplot2)
+
+data(iris)
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point()
+
+```
+
+
+## Filtering your data ##
+example:
+```{r}
+# Simple Example: Checking Sea Surface Temperature (SST)
+sst <- 30.2
+
+if (sst > 29.5) {
+  print("Warning: Marine heatwave threshold exceeded!")
+} else {
+  print("SST remains within baseline parameters.")
+}
+
+```
+
+Base R: if and else
+The classic base R conditional structure screens a single value at a time. Its basic anatomy uses round brackets () for the logical condition and curly braces {} for the action if that condition is true.
+
+
+###Tidyverse Alternative: Vectorised Conditionals (dplyr):
+##if_else()
+###The if_else(condition, true_output, false_output) function evaluates an entire column item-by-item:
+
+```{r}
+# Load tidyverse (if not already loaded)
+library(tidyverse)
+
+# Sample coral data
+coral_monitoring <- tibble(
+  site = c("Site_A", "Site_B", "Site_C"),
+  depth_m = c(12, 35, 8)
+)
+
+# Classify depth using if_else
+coral_monitoring <- coral_monitoring %>% 
+  mutate(zone = if_else(depth_m > 30, "Deep Reef", "Shallow Reef"))
+
+```
+what do you think that function mutate()  does? 
+>The mutate() function from the dplyr package (part of the tidyverse) adds new columns to a data frame, or modifies existing ones, based on functions of existing columns. It's a powerful tool for creating new variables or transforming existing ones.
+
+
+What about the %>% symbol? Use your developing programmer skills to find out more information about these two functions and record your findings now in your qmd.
+
+>The %>% symbol, known as the pipe operator (or forward pipe operator), loaded when you load dplyr or the tidyverse.Its primary purpose is to make code more readable and easier to write by chaining operations together. Instead of nesting function calls from the inside out, the pipe allows you to read code from left to right, passing the result of one function as the first argument to the next function.
+Consider the following:
+
+function_c(function_b(function_a(data, arg1), arg2), arg3)
+
+With the pipe operator, this becomes:
+  
+data %>%
+  function_a(arg1) %>%
+  function_b(arg2) %>%
+  function_c(arg3)
+
+This structure often makes the sequence of operations much clearer to follow.
+
+
+##case_when()##
+When you have more than two possibilities, stacking multiple if-else blocks becomes unreadable. case_when() provides a clean, sequential evaluation layout using formula tildes (~):
+
+```{r}
+coral_monitoring <- coral_monitoring %>% 
+  mutate(reef_category = case_when(
+    depth_m < 10  ~ "Lagoon / Flats",
+    depth_m <= 30 ~ "Crest / Slope",
+    depth_m > 30  ~ "Mesophotic / Deep",
+    TRUE          ~ "Unclassified" # Catch-all remainder
+  ))
+
+```
+
+
+##Task:  Environmental Stress Classification ##
+Using the chattr app or inline copilot, your task here is to write an R script that initialises a tibble named marine_stations containing a column for salinity with values 35, 28, 32, and 12. Use the pipe operator (%>%) and mutate() combined with case_when() to create a new column named environment_type. Classify values below 15 as "Estuarine", values between 15 and 30 as "Brackish", and values above 30 as "Marine". Run your script and verify the table structure.
+
+```{r}
+library(dplyr)
+library(tibble)
+
+marine_stations <- tibble(
+  salinity = c(35, 28, 32, 12)
+) %>%
+  mutate(
+    environment_type = case_when(
+      salinity < 15 ~ "Estuarine",
+      salinity >= 15 & salinity <= 30 ~ "Brackish",
+      salinity > 30 ~ "Marine"
+    )
+  )
+
+marine_stations
+```
+
+##Comparison Example: Calculating Square Roots of Site Vectors##
+
+###Using a standard for-loop:###
+site_areas <- c(144, 400, 625)
+results <- numeric(length(site_areas)) # Must build an empty container first
+
+for(i in seq_along(site_areas)) {
+  results[i] <- sqrt(site_areas[i])
+
+```{r}
+#Using a standard for-loop:
+site_areas <- c(144, 400, 625)
+results <- numeric(length(site_areas)) # Must build an empty container first
+
+for(i in seq_along(site_areas)) {
+  results[i] <- sqrt(site_areas[i])}
+```
+
+```{r}
+#Using the purrr equivalent:
+library(purrr)
+# Map directly and define your expected output type explicitly
+mapped_results <- map_dbl(site_areas, sqrt) 
+
+```
+
+Both examples produce the same result, but purrr makes the workflow shorter and cleaner. Using map_dbl() applies the function across the vector without needing a manual loop, making the code easier to read, reproduce, and scale for larger marine science datasets.
+
+## Iterate a summary function over split lists of data ##
+
+```{r}
+iris %>% 
+  split(.$Species) %>% 
+  map(~summary(.x))
+```
+
+##Task using chattr##
+prompt: I have a list of three vectors containing fish count data. Write a for-loop to calculate the mean of each, and then show me the exact parallel way to do it using purrr's map_dbl function.
+
+```{r}
+library(purrr)
+library(dplyr)
+
+# Create the list of vectors
+fish_data <- list(
+  vector1 = c(10, 12, 15, 11, 13),
+  vector2 = c(5, 7, 6, 8, 9),
+  vector3 = c(20, 22, 19, 21, 23)
+)
+
+# Using a for-loop
+means_for_loop <- numeric(length(fish_data))
+for (i in seq_along(fish_data)) {
+  means_for_loop[i] <- mean(fish_data[[i]])
+}
+
+# Using purrr::map_dbl
+means_map_dbl <- map_dbl(fish_data, mean)
+```
+
+```{r}
+print(means_for_loop)
+print(means_map_dbl)
+
+#comparing thee outputs we can see that both methods yield the same results, confirming that the purrr::map_dbl function is an efficient and cleaner alternative to the traditional for-loop for this type of operation.
+```
+
+## Writing custom functions#
+
+Function Construction Blueprint:
+
+```{r}
+# Function Definition
+calculate_coral_mortality <- function(initial_count, surviving_count) {
+  
+  # Logic safety switch using our conditional tools!
+  if (initial_count <= 0) {
+    stop("Initial count must be greater than zero.")
+  }
+  
+  mortality_rate <- (initial_count - surviving_count) / initial_count
+  return(mortality_rate)
+}
+
+# Utilizing your custom function
+calculate_coral_mortality(initial_count = 120, surviving_count = 84)
+
+```
+
+
+
+# Student Exercise 4: Custom Function Construction Task
+
+Build a custom function named convert_temp_c_to_f that accepts a single argument representing temperature in Celsius. The function should perform the math conversion: F = (C * 9/5) + 32. Include a conditional safety check using an if statement that halts execution via stop() if the entered value is below absolute zero (-273.15 degrees Celsius). Test your function with both a valid temperature and an invalid value to ensure the error handling behaves as expected.
+
+
+```{r}
+# Define the custom function
+convert_temp_c_to_f <- function(celsius_temp) {
+  # Conditional safety check for absolute zero
+  if (celsius_temp < -273.15) {
+    stop("Temperature cannot be below absolute zero (-273.15 degrees Celsius).")
+  }
+
+  # Perform the conversion
+  fahrenheit_temp <- (celsius_temp * 9 / 5) + 32
+  return(fahrenheit_temp)
+}
+
+# Test with a valid temperature
+valid_celsius <- 25
+valid_fahrenheit <- convert_temp_c_to_f(valid_celsius)
+
+# Test with an invalid temperature to ensure error handling
+invalid_celsius <- -300
+
+```
+
+```{r}
+convert_temp_c_to_f(120) # = 248
+
+convert_temp_c_to_f(-300) #Error in convert_temp_c_to_f(-300) : Temperature cannot be below absolute zero (-273.15 degrees Celsius).
+```
+
+## Challenage 1 ##
+
+In real-world field surveys, calculations often depend on matching values across multiple lists or matrices. Read the documentation for purrr::map2_dbl(). Given a vector of raw survey counts counts <- c(15, 24, 8, 42) and a vector of species-specific scaling factors factors <- c(1.2, 0.8, 2.5, 1.1), write a mapping statement that iterates across both vectors simultaneously to return a single vector of scaled abundance values. Do not use a manual index loop.
+
+```{r}
+library(purrr)
+
+# Define the vectors
+counts <- c(15, 24, 8, 42)
+factors <- c(1.2, 0.8, 2.5, 1.1)
+
+# Use map2_dbl to iterate across both vectors simultaneously
+scaled_abundance <- map2_dbl(counts, factors, ~ .x * .y)
+
+```
+
+
+## Challenge 2: The Robust Data Wrangling Pipeline Function##
+
+Create a custom function named clean_and_classify_survey that handles complex data frame structures. The function must fulfill these criteria:
+Accept a data frame and a column name threshold parameter as inputs.
+Safely check if the specified column name exists within the passed data frame; if it does not, trigger a user-friendly error message using stop().
+Filter out rows containing missing values (NA) within that specific column.
+Use the pipe operator and mutate() along with a vectorised conditional (if_else() or case_when()) to append a status string variable classification based on your threshold parameter.
+Return the cleaned, altered data frame to the global environment.
+Test your custom pipeline using a mock tibble that contains at least one missing value to confirm your code handles anomalies without crashing.
+
+
+```{r}
+library(dplyr)
+library(rlang) # Needed for !!sym() to handle string column names elegantly
+
+# Define the custom function
+clean_and_classify_survey <- function(df, col_to_check, threshold_value) {
+  # 1. Safely check if the specified column name exists
+  if (!col_to_check %in% names(df)) {
+    stop(paste0("Error: Column '", col_to_check, "' not found in the data frame."))
+  }
+
+  # 2. Filter out rows with missing values (NA) in the specified column
+  # 3. Use pipe operator and mutate() along with a vectorized conditional
+  cleaned_df <- df %>%
+    filter(!is.na(!!sym(col_to_check))) %>% # !!sym() allows using a string as a column name
+    mutate(
+      classification = if_else(
+        !!sym(col_to_check) > threshold_value,
+        "Above Threshold",
+        "Below Threshold"
+      )
+    )
+
+  # 4. Return the cleaned, altered data frame
+  return(cleaned_df)
+}
+```
+
+```{r}
+# --- Test your custom pipeline ---
+
+# Create a mock tibble with 2 missing values
+mock_survey_data <- tibble(
+  site = c("A", "B", "C", "D", "E"),
+  species = c("Fish1", "Fish2", "Fish3", "Fish4", "Fish5"),
+  count = c(10, NA, 25, 7, 18),
+  biomass = c(100, 120, 150, NA, 110)
+)
+
+# Define a threshold value
+my_threshold <- 15
+
+# Test with valid inputs
+cat("--- Testing with valid inputs ---\n")
+cleaned_classified_data <- tryCatch(
+  {
+    clean_and_classify_survey(mock_survey_data, "count", my_threshold)
+  },
+  error = function(e) {
+    message("An error occurred: ", e$message)
+    NULL
+  }
+)
+
+# Show the result if successful
+if (!is.null(cleaned_classified_data)) {
+  print(cleaned_classified_data)
+}
+```
+
+```{r}
+# Test with an invalid column name to confirm error handling
+cat("\n--- Testing with an invalid column name ---\n")
+tryCatch(
+  {
+    clean_and_classify_survey(mock_survey_data, "non_existent_col", my_threshold)
+  },
+  error = function(e) {
+    message("Successfully caught error: ", e$message)
+  }
+)
+
+```
+this test confirms that the function correctly identifies when a specified column does not exist in the data frame and provides a user-friendly error message without crashing the entire script. The use of tryCatch allows us to handle the error gracefully and continue with other operations if needed.
