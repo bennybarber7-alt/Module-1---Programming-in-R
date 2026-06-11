@@ -27,19 +27,13 @@ knitr::opts_chunk$set(
 	warning = FALSE)
 ```
 
-#------------------------------------#
- # MB5370: Techniques in Marine Science 1
- # Programming Fundamentals
- 
+# MB5370: Techniques in Marine Science 1: Programming Fundamentals
 
- #------------------------------------#
- # Workshop 01. Introduction #
+# Workshop 01. Introduction
 
 Workshop 1 introduced the foundations of programming for marine science, with a focus on building confidence in R and RStudio. The workshop covered basic R syntax, scripts, objects, functions, data types, packages, debugging, and good coding style. It also introduced the importance of reproducible workflows, including organised project folders, Quarto documents, and GitHub tracking. This workshop provided the technical foundation needed to begin working with marine science data in a clear, organised, and reproducible way.
 
-
-
-## Introduction excerises ##
+## Introduction excerises
 
 ```{r}
 # R syntax and working in scripts ##
@@ -85,7 +79,9 @@ round (years_old, 2) # comma after the object to specify argument
 
 
 ```
-## Debugging ##
+
+## Debugging
+
 ```{r}
 # What will this code do?
 p <- 2
@@ -119,7 +115,7 @@ str(my_quiz)
 length(my_quiz)  
 ```
 
-## Data Types ##
+## Data Types
 
 ```{r}
 # character    
@@ -152,7 +148,7 @@ class(my_integer_varaible) #numeric
 class(my_logical_varaible) #logical
 ```
 
-## Dataframes and Tibbles ##
+## Dataframes and Tibbles
 
 ```{r}
 
@@ -174,7 +170,7 @@ str (my_dataframe)                            #that column 1 is actually storing
 
 ```
 
-## Installing packages ##
+## Installing packages
 
 ```{r}
 #packages are a collection of functions
@@ -193,5 +189,3 @@ library (ggplot2)
 
 
 ```
-
-
