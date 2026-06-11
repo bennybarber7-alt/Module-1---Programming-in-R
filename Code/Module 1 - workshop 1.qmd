@@ -1,22 +1,22 @@
 ---
 title: "Module 1 - workshop 1"
 author: "Ben Barber"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-format: html
-output: 
- html_document:
-    code_folding: show
-    collapse: no
-    df_print: paged
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 10
-    highlight: textmate
-    theme: spacelab
-    toc: yes
-    toc_float: yes
-editor_options: 
-  chunk_output_type: inline
+date: today
+date-format: "D MMMM, YYYY"
+
+format:
+  html:
+    embed-resources: true
+    self-contained-math: true
+    page-layout: full
+    toc: true
+    theme: cosmo
+    code-fold: true
+
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 ```{r setup, include=FALSE}
