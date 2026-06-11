@@ -1,0 +1,198 @@
+---
+title: "Module 1 - workshop 1"
+author: "Ben Barber"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+ html_document:
+    code_folding: show
+    collapse: no
+    df_print: paged
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: inline
+
+```{r setup, include=FALSE}
+# Set options, housekeeping
+knitr::opts_chunk$set(
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE)
+```
+
+#------------------------------------#
+ # MB5370: Techniques in Marine Science 1
+ # Programming Fundamentals
+ 
+
+ #------------------------------------#
+ # Workshop 01. Introduction #
+
+Workshop 1 introduced the foundations of programming for marine science, with a focus on building confidence in R and RStudio. The workshop covered basic R syntax, scripts, objects, functions, data types, packages, debugging, and good coding style. It also introduced the importance of reproducible workflows, including organised project folders, Quarto documents, and GitHub tracking. This workshop provided the technical foundation needed to begin working with marine science data in a clear, organised, and reproducible way.
+
+
+
+## Introduction excerises ##
+
+```{r}
+# R syntax and working in scripts ####
+# This section introduces us to R by running simple calculations inside a script.
+
+2+1
+
+1:30
+
+6 *
+ + 2
+
+
+#Functions and arguments
+age <- 22
+first_name <- 'ben'
+
+age+1
+age+ age
+```
+
+```{r}
+# Objects and assignment operator
+
+result <- 15 + 25.1 + 20.25 #result<- 60.35
+
+second_result <- 12 + 6 + 84 
+
+result + second_result # = 162.35
+
+##Fucntions in R
+
+years_old <- 57.7
+
+round(years_old) #round up
+
+floor(years_old) #round down
+
+years_old <- 25.765
+round (years_olld, 2) # comma after the object to specify argument
+
+##question about functions use args(xxx) and ?round # go to help in console
+
+
+```
+
+```{r}
+## Debugging ##
+
+# What will this code do?
+p <- 2
+z <- 5
+out <- p * z  # What should the value of out be? <-- will multiple p and z together 
+print (out) # What is the value of out? Is it the same as expected?
+
+# exercise #
+#my_quiz <- c("uno",
+             "dos",
+             "tres",
+             "cuatro"
+             "cinco")     # comment: there are is a missing comma in the my_quiz string
+#print (my_quis)        # spelling mistake in print function
+#str(my_quiz)
+#len(my_quiz)       # functoin not real, real functoin = length
+
+#testing
+
+is.character(my_quiz) #true
+is.numeric(my_quiz)  #false
+#how it shoudl look:
+
+my_quiz <- c("uno",
+             "dos",
+             "tres",
+             "cuatro",
+             "cinco")
+print(my_quiz )
+str(my_quiz)
+length(my_quiz)  
+```
+
+## Data Types ##
+
+```{r}
+# character    
+# numeric
+# integer
+# logical
+# complex
+# raw
+
+
+#class() - what kind of object is it (high-level)?
+#  typeof() - what is the object's data type?
+#length() - how long is it?
+#attributes() - does it have any metadata? 
+
+## Exercise ##
+my_numeric_variable  <-  6.3
+my_character_varaible <- "ben"
+my_integer_varaible <- 8
+my_logical_varaible <- 9 < 12
+
+typeof(my_numeric_variable)
+typeof(my_character_varaible)
+typeof(my_integer_varaible)
+typeof(my_logical_varaible)
+
+class(my_numeric_variable) #numeric
+class(my_character_varaible) #character
+class(my_integer_varaible) #numeric
+class(my_logical_varaible) #logical
+```
+
+## Dataframes and Tibbles ##
+
+```{r}
+
+#dataframe is the R version of a spreadsheet
+
+my_dataframe <- data.frame (no = c(1,2,3), c("Tracey", "John", "Pete"), c(TRUE, FALSE, TRUE))
+                           
+my_dataframe
+
+str(my_dataframe)
+
+# checking the dataframe
+my_dataframe$no = as.factor(my_dataframe$no)   #A factor is a categorical type, so here we are telling R 
+str (my_dataframe)                            #that column 1 is actually storing a category (a group membership, 
+                                               #say a numeric code for which team each of these people are in) 
+                                              #rather than a real continuous number. 
+
+#can use NA as a cell holder when we don't have the data <-  can use na.omit function 
+
+```
+
+## Installing packages ##
+
+```{r}
+#packages are a collection of functions
+
+#install.packages("tidyverse") # download and install
+library("tidyverse") # load into current workspace
+
+#install.packages ("ggplot2") # comment out so it doesn’t run again, once its installed on computer it doesn't need to be reinstalled
+
+
+#install.packages("earthtones")
+#install.packages ("redlistr")
+#install.packages("terra")
+
+library (ggplot2)
+
+
+```
+
+
