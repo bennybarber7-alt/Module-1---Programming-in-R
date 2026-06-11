@@ -1,0 +1,44 @@
+title: "Module 1 - workshop 3"
+author: "Ben Barber"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+ html_document:
+    code_folding: show
+    collapse: no
+    df_print: paged
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: inline
+
+```{r setup, include=FALSE}
+# Set options, housekeeping
+knitr::opts_chunk$set(
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE)
+```
+
+#------------------------------------#
+# MB5370: Techniques in Marine Science 1
+# Programming Fundamentals
+ 
+
+#------------------------------------#
+# Workshop 03. Reproducible research in marine science #
+
+Workshop 3 focused on reproducible research and version control in marine science. During this workshop, I connected RStudio, Git, and GitHub so that my local project could be tracked, backed up, and synced with a remote GitHub repository. I also created an organised project folder structure, set up a Quarto document to work in, and added a README file to explain the purpose and structure of my repository. Through practising the basic Git workflow of saving, staging, committing, pulling, and pushing changes, I developed a clearer understanding of how version control supports transparent, organised, and reproducible scientific coding workflows.
+
+## Running a script in markdown ##
+```{r}
+source("module_1.R")
+
+getwd()
+```
+
