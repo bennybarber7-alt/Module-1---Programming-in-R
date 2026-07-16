@@ -1,54 +1,59 @@
-title: "Module 1 - workshop 2"
+---
+title: "Module 1 - Workshop 2"
 author: "Ben Barber"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
- html_document:
-    code_folding: show
-    collapse: no
-    df_print: paged
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 10
-    highlight: textmate
-    theme: spacelab
-    toc: yes
-    toc_float: yes
-editor_options: 
-  chunk_output_type: inline
+date: today
+date-format: "D MMMM, YYYY"
 
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: left
+    code-fold: false
+    code-tools: true
+    page-layout: full
+    smooth-scroll: true
+    theme: cosmo
+
+execute:
+  echo: true
+  output: true
+  warning: false
+  message: false
+---
 ```{r setup, include=FALSE}
 # Set options, housekeeping
 knitr::opts_chunk$set(
-	echo = FALSE,
+	echo = TRUE,
 	include = TRUE,
 	message = FALSE,
 	warning = FALSE)
 ```
 
-#------------------------------------#
+
 # MB5370: Techniques in Marine Science 1
 # Programming Fundamentals
  
 
-#------------------------------------#
+
 # Workshop 02. Visualisation #
  
  
- ## Load Packages ##
+## Load Packages ##
  
 ```{r}
 library(tidyverse)
 
 #explore ggplot dataframe using built in dataset on cars.
-mpg
-?mpg
+#mpg
+#?mpg
 ```
  
 # Understand the ‘grammar of graphics’#
 
 ## Craeation of First ggplot ##
 
-```{r}
+```{r, output = T, echo= T}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) # Using ggplot2, I plotted the data (data = mpg) and then put the size of the engine (displ) on the x axis and the fuel efficiency (hwy) on the y axis. 
 
@@ -64,7 +69,7 @@ ggplot(data = <DATA>) +
   
 ## Aesthetics and Mappings ##
 
-```{r}
+```{r, output = T, echo= T}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, colour = class)) # New aesthetic: graph by mapping the colour of the points to the class of the car.
 
@@ -91,7 +96,7 @@ ggplot(data = mpg) +
 ```
 ### example errors in ggplot ###
 
-```{r}
+```{r, eval=F }
 ggplot(data = mpg) 
 + geom_point(mapping = aes(x = displ, y = hwy)) # the + should be on top line
 
@@ -104,7 +109,7 @@ To facet your plot using a single variable, use facet_wrap(). Facet wrap syntax 
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +    
-  facet_wrap(~ class, nrow = 2)  facet_wrap(~ class, nrow = 2)                   #nrow is the number of rows you want in your facet plot, ncol is the number of columns you want in your facet plot
+  facet_wrap(~ class, nrow = 2)  #nrow is the number of rows you want in your facet plot, ncol is the number of columns you want in your facet plot
 
 ```
 ##including more than 1 varaible into the facet grid 
@@ -115,9 +120,11 @@ ggplot(data = mpg) +
 
 
 
-
-facet_grid(. ~ cyl) #facet by cyl in the columns, but not facet by anything in the rows (the . is a placeholder for 'nothing'
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl) #facet by cyl in the columns, but not facet by anything in the rows (the . is a placeholder for 'nothing'
 ```
+
 ### nrow and ncol refer to the number of rows or columns, eg.###
 ```{r}
 ggplot(data = mpg) + 

@@ -1,36 +1,40 @@
-title: "Module 1 - workshop 4"
+---
+title: "Module 1 - Workshop 4"
 author: "Ben Barber"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
- html_document:
-    code_folding: show
-    collapse: no
-    df_print: paged
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 10
-    highlight: textmate
-    theme: spacelab
-    toc: yes
-    toc_float: yes
-editor_options: 
-  chunk_output_type: inline
+date: today
+date-format: "D MMMM, YYYY"
+
+format:
+  html:
+    embed-resources: true
+    self-contained-math: true
+    toc: true
+    toc-location: left
+    page-layout: full
+    code-fold: false
+    code-tools: true
+    smooth-scroll: true
+    theme: cosmo
+
+execute:
+  echo: true
+  warning: false
+  message: false
+---
 
 ```{r setup, include=FALSE}
-# Set options, housekeeping
 knitr::opts_chunk$set(
-	echo = FALSE,
-	include = TRUE,
-	message = FALSE,
-	warning = FALSE)
+  echo = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
 ```
 
-#------------------------------------#
 # MB5370: Techniques in Marine Science 1
 # Programming Fundamentals
  
 
-#------------------------------------#
 # Workshop 04. The Developer's Toolbox & AI #
 
 ## Exercise: AI-Driven Data Visualisation Challenge ##
@@ -150,9 +154,13 @@ Base R: if and else
 The classic base R conditional structure screens a single value at a time. Its basic anatomy uses round brackets () for the logical condition and curly braces {} for the action if that condition is true.
 
 
-###Tidyverse Alternative: Vectorised Conditionals (dplyr):
-##if_else()
-###The if_else(condition, true_output, false_output) function evaluates an entire column item-by-item:
+### Tidyverse Alternative: Vectorised Conditionals (`dplyr`)
+
+#### `if_else()`
+
+The `if_else(condition, true_output, false_output)` function evaluates an entire column item by item.
+
+#### `case_when()`
 
 ```{r}
 # Load tidyverse (if not already loaded)
@@ -228,27 +236,26 @@ marine_stations
 
 ##Comparison Example: Calculating Square Roots of Site Vectors##
 
-###Using a standard for-loop:###
-site_areas <- c(144, 400, 625)
-results <- numeric(length(site_areas)) # Must build an empty container first
-
-for(i in seq_along(site_areas)) {
-  results[i] <- sqrt(site_areas[i])
+###Using a standard for-loop:
 
 ```{r}
-#Using a standard for-loop:
+# Using a standard for-loop
 site_areas <- c(144, 400, 625)
-results <- numeric(length(site_areas)) # Must build an empty container first
+results <- numeric(length(site_areas))
 
-for(i in seq_along(site_areas)) {
-  results[i] <- sqrt(site_areas[i])}
+for (i in seq_along(site_areas)) {
+  results[i] <- sqrt(site_areas[i])
+}
+
+results
 ```
 
 ```{r}
 #Using the purrr equivalent:
 library(purrr)
 # Map directly and define your expected output type explicitly
-mapped_results <- map_dbl(site_areas, sqrt) 
+mapped_results <- map_dbl(site_areas, sqrt)
+mapped_results
 
 ```
 
@@ -345,6 +352,7 @@ invalid_celsius <- -300
 ```
 
 ```{r}
+#| error: true
 convert_temp_c_to_f(120) # = 248
 
 convert_temp_c_to_f(-300) #Error in convert_temp_c_to_f(-300) : Temperature cannot be below absolute zero (-273.15 degrees Celsius).
@@ -364,6 +372,7 @@ factors <- c(1.2, 0.8, 2.5, 1.1)
 # Use map2_dbl to iterate across both vectors simultaneously
 scaled_abundance <- map2_dbl(counts, factors, ~ .x * .y)
 
+scaled_abundance
 ```
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Module 1 - workshop 1"
+title: "Module 1 - Workshop 1"
 author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
@@ -8,24 +8,26 @@ format:
   html:
     embed-resources: true
     self-contained-math: true
-    page-layout: full
     toc: true
+    toc-location: left
+    page-layout: full
+    code-fold: false
+    code-tools: true
+    smooth-scroll: true
     theme: cosmo
-    code-fold: true
-
 execute:
-  echo: false
+  echo: true
   warning: false
   message: false
 ---
 
 ```{r setup, include=FALSE}
-# Set options, housekeeping
 knitr::opts_chunk$set(
-	echo = FALSE,
-	include = TRUE,
-	message = FALSE,
-	warning = FALSE)
+  echo = TRUE,
+  include = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
 ```
 
 # MB5370: Techniques in Marine Science 1: Programming Fundamentals
@@ -117,20 +119,21 @@ length(my_quiz)
 ```
 
 ## Data Types
+include:
+- character    
+- numeric
+- integer
+- logical
+- complex
+- raw
+
+
+-class() - what kind of object is it (high-level)?
+-  typeof() - what is the object's data type?
+-length() - how long is it?
+-attributes() - does it have any metadata? 
 
 ```{r}
-# character    
-# numeric
-# integer
-# logical
-# complex
-# raw
-
-
-#class() - what kind of object is it (high-level)?
-#  typeof() - what is the object's data type?
-#length() - how long is it?
-#attributes() - does it have any metadata? 
 
 ## Exercise ##
 my_numeric_variable  <-  6.3
@@ -172,9 +175,16 @@ str (my_dataframe)                            #that column 1 is actually storing
 ```
 
 ## Installing packages
+packacges include tidyverse, ggplot2, earthtones, redlistr, terra:
 
+-install.packages("tidyverse") # download and install
+-install.packages ("ggplot2") # comment out so it doesn’t run again, once its installed on computer it doesn't need to be reinstalled
+-install.packages("earthtones")
+-install.packages ("redlistr")
+-install.packages("terra")
+
+###Packages are a collection of functions
 ```{r}
-#packages are a collection of functions
 
 #install.packages("tidyverse") # download and install
 library("tidyverse") # load into current workspace
