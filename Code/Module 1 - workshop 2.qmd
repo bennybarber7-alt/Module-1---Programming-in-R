@@ -4,22 +4,8 @@ author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
 
-format:
-  html:
-    embed-resources: true
-    toc: true
-    toc-location: left
-    code-fold: false
-    code-tools: true
-    page-layout: full
-    smooth-scroll: true
-    theme: cosmo
-
-execute:
-  echo: true
-  output: true
-  warning: false
-  message: false
+format: html
+    
 ---
 ```{r setup, include=FALSE}
 # Set options, housekeeping
@@ -31,13 +17,13 @@ knitr::opts_chunk$set(
 ```
 
 
-# MB5370: Techniques in Marine Science 1
-# Programming Fundamentals
+# MB5370: Techniques in Marine Science 1:Programming Fundamentals
  
-
 
 # Workshop 02. Visualisation #
- 
+
+# Introduction
+This workshop helped me get back into using R and understanding how a script works. It reinforced previous learning, such as how small errors, like misspelled object names or running code in the wrong order, can stop the rest of the script from working. These basic skills will be useful when working with larger marine science datasets later in the subject.
  
 ## Load Packages ##
  
@@ -348,3 +334,6 @@ ggplot(data = mpg) +
 
 ```
 
+# Workshop Reflection
+
+This workshop helped me improve my ggplot2 skills and better understand how aesthetics, geoms, facets and fitted lines can be combined to display patterns in data. It also showed me how different visual choices can affect how results are interpreted. These skills will be useful when presenting marine science data clearly.

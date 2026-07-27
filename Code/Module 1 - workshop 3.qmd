@@ -4,22 +4,8 @@ author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
 
-format:
-  html:
-    embed-resources: true
-    self-contained-math: true
-    toc: true
-    toc-location: left
-    page-layout: full
-    code-fold: false
-    code-tools: true
-    smooth-scroll: true
-    theme: cosmo
-
-execute:
-  echo: true
-  warning: false
-  message: false
+format:  html
+    
 ---
 
 ```{r setup, include=FALSE}

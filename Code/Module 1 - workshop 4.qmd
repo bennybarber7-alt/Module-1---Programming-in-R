@@ -4,22 +4,7 @@ author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
 
-format:
-  html:
-    embed-resources: true
-    self-contained-math: true
-    toc: true
-    toc-location: left
-    page-layout: full
-    code-fold: false
-    code-tools: true
-    smooth-scroll: true
-    theme: cosmo
-
-execute:
-  echo: true
-  warning: false
-  message: false
+format:  html
 ---
 
 ```{r setup, include=FALSE}
@@ -31,11 +16,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-# MB5370: Techniques in Marine Science 1
-# Programming Fundamentals
+# MB5370: Techniques in Marine Science 1: Programming Fundamentals
  
 
 # Workshop 04. The Developer's Toolbox & AI #
+
+# Introduction 
+
+This workshop focused on using AI-assisted coding tools and developing more advanced programming skills in R. I worked with conditional statements, pipes, data transformation and custom functions, while also learning how tools such as GitHub Copilot can support coding.
 
 ## Exercise: AI-Driven Data Visualisation Challenge ##
 
@@ -461,3 +449,7 @@ tryCatch(
 
 ```
 this test confirms that the function correctly identifies when a specified column does not exist in the data frame and provides a user-friendly error message without crashing the entire script. The use of tryCatch allows us to handle the error gracefully and continue with other operations if needed.
+
+# Workshop Reflection
+
+This workshop showed me how AI can help generate and explain code, but also reinforced the importance of checking that the output is correct. I improved my understanding of conditional statements, pipes and functions, which will be useful for creating more efficient workflows when analysing marine science data.
