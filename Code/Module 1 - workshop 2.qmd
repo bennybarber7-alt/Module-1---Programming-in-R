@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
 # Workshop 02. Visualisation #
 
 # Introduction
-This workshop helped me get back into using R and understanding how a script works. It reinforced previous learning, such as how small errors, like misspelled object names or running code in the wrong order, can stop the rest of the script from working. These basic skills will be useful when working with larger marine science datasets later in the subject.
- 
+This workshop focused on creating graphs in R using ggplot2. I worked with aesthetics, geoms, facets and fitted lines to explore how different parts of a graph can be combined. It also helped me understand how visual choices can change the way patterns in data are displayed.
+
 ## Load Packages ##
  
 ```{r}
