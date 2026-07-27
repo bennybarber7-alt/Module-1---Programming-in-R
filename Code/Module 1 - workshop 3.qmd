@@ -4,8 +4,9 @@ author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
 
-format:  html
-    
+format: 
+  html:
+    embed-resources: true    
 ---
 
 ```{r setup, include=FALSE}
