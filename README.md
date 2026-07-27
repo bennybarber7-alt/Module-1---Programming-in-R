@@ -7,10 +7,9 @@ as an introduction to scripted workflows in marine science.
 
 ## Background & Aims
 This module builds the base scripting literacy needed for the more data-heavy
-work in later modules (R4MarineScience, marine-genomics). The focus is on
-developing clean, reproducible coding habits — writing well-commented scripts
-and understanding core R logic — as a foundation for scientific computing in
-marine biology.
+work in later modules. The focus is on developing clean, reproducible coding 
+habits such as writing well-commented scriptsand understanding core R logic, as a
+foundation for scientific computing in marine biology.
 
 ## Structure
 - `Code/` — R scripts for workshop exercises
