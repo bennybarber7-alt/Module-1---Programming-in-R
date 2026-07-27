@@ -4,21 +4,7 @@ author: "Ben Barber"
 date: today
 date-format: "D MMMM, YYYY"
 
-format:
-  html:
-    embed-resources: true
-    self-contained-math: true
-    toc: true
-    toc-location: left
-    page-layout: full
-    code-fold: false
-    code-tools: true
-    smooth-scroll: true
-    theme: cosmo
-execute:
-  echo: true
-  warning: false
-  message: false
+format: html
 ---
 
 ```{r setup, include=FALSE}
@@ -201,6 +187,6 @@ library (ggplot2)
 
 ```
 
-#Workshop Reflection
+# Workshop Reflection
 
 This workshop helped me get back into using R and understanding how a script works. It reinforced previous learning, such as how small errors, like misspelled object names or running code in the wrong order, can stop the rest of the script from working. These basic skills will be useful when working with larger marine science datasets later in the subject.
