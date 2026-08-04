@@ -1,4 +1,4 @@
-# Module 1: Programming in R
+# MB5370 Module 1: Programming in R
 
 ## Overview
 Foundational programming exercises for MB5370 (Techniques in Marine Science 1),
